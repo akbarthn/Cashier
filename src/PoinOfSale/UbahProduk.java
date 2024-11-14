@@ -4,41 +4,40 @@
  */
 package PoinOfSale;
 
-import PoinOfSale.Admin;
-import PoinOfSale.koneksi;
 import java.io.File;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-import javax.swing.JComboBox;
 import javax.swing.JFileChooser;
+import java.awt.HeadlessException;
+import java.sql.Connection;
+//import java.sql.Statement;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import javax.swing.JOptionPane;
-
 /**
  *
  * @author ACER
  */
-public class TambahProduk extends javax.swing.JDialog {
+public class UbahProduk extends javax.swing.JDialog {
     
-    private JComboBox<String> cmb;
-    private int idProduk;
-
+    private int ip;
+    private String kp;
+    private String np;
+    private String gp;
+    private int kgp;
+    private int slp;
+    private double hj;
+    private double hb;
+    private int sp;
+    
     /**
-     * Creates new form TambahProduk
+     * Creates new form UbahProduk
      */
-    public TambahProduk(java.awt.Frame parent, boolean modal) {
-        super(parent, modal);
+    public UbahProduk(java.awt.Frame parent, boolean modal) {
+        super(parent,modal);
         initComponents();
-        
-        cmb = new JComboBox<>();
-        KategoriProduk();
-        SupplierProduk();
     }
 
-    public int id_Produk(){
-        return idProduk;
+    UbahProduk(Admin aThis, boolean b) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     /**
@@ -51,8 +50,6 @@ public class TambahProduk extends javax.swing.JDialog {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
-        txt_kp = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         txt_np = new javax.swing.JTextField();
         txt_gp = new javax.swing.JTextField();
@@ -69,18 +66,16 @@ public class TambahProduk extends javax.swing.JDialog {
         cmb_kategori = new javax.swing.JComboBox<>();
         cmb_supplier = new javax.swing.JComboBox<>();
         jSeparator1 = new javax.swing.JSeparator();
-        btn_simpanproduk = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
         jLabel9 = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
+            }
+        });
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 204));
-
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jLabel1.setText("KODE PRODUK");
-
-        txt_kp.setEditable(false);
-        txt_kp.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel2.setText("NAMA PRODUK");
@@ -117,6 +112,11 @@ public class TambahProduk extends javax.swing.JDialog {
         jLabel7.setText("HARGA BELI");
 
         txt_hb.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        txt_hb.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txt_hbActionPerformed(evt);
+            }
+        });
 
         txt_sp.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
 
@@ -139,15 +139,15 @@ public class TambahProduk extends javax.swing.JDialog {
 
         cmb_supplier.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
-        btn_simpanproduk.setText("SIMPAN");
-        btn_simpanproduk.addActionListener(new java.awt.event.ActionListener() {
+        jButton2.setText("SIMPAN");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_simpanprodukActionPerformed(evt);
+                jButton2ActionPerformed(evt);
             }
         });
 
         jLabel9.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel9.setText("TAMBAH PRODUK");
+        jLabel9.setText("UBAH PRODUK");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -156,59 +156,54 @@ public class TambahProduk extends javax.swing.JDialog {
             .addComponent(jSeparator1)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btn_simpanproduk, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(17, 17, 17))
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(14, 14, 14)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txt_np, javax.swing.GroupLayout.PREFERRED_SIZE, 263, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(149, 149, 149)
+                        .addComponent(jLabel9))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txt_gp, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(cmb_kategori, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(cmb_supplier, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txt_hj, javax.swing.GroupLayout.PREFERRED_SIZE, 263, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txt_hb, javax.swing.GroupLayout.PREFERRED_SIZE, 263, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txt_sp, javax.swing.GroupLayout.PREFERRED_SIZE, 263, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel9)
-                            .addComponent(txt_kp, javax.swing.GroupLayout.PREFERRED_SIZE, 263, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(14, Short.MAX_VALUE))
+                        .addGap(14, 14, 14)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txt_np, javax.swing.GroupLayout.PREFERRED_SIZE, 263, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txt_gp, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(cmb_kategori, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(cmb_supplier, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txt_hj, javax.swing.GroupLayout.PREFERRED_SIZE, 263, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txt_hb, javax.swing.GroupLayout.PREFERRED_SIZE, 263, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txt_sp, javax.swing.GroupLayout.PREFERRED_SIZE, 263, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addContainerGap(20, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addGap(18, 18, 18)
                 .addComponent(jLabel9)
-                .addGap(29, 29, 29)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txt_kp, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 24, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txt_np, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -241,8 +236,8 @@ public class TambahProduk extends javax.swing.JDialog {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(btn_simpanproduk)
-                .addContainerGap(24, Short.MAX_VALUE))
+                .addComponent(jButton2)
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -253,7 +248,7 @@ public class TambahProduk extends javax.swing.JDialog {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
@@ -281,71 +276,72 @@ public class TambahProduk extends javax.swing.JDialog {
         } else {
             JOptionPane.showMessageDialog(this, "Open command canceled");
         }
-
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void cmb_kategoriActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmb_kategoriActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_cmb_kategoriActionPerformed
 
-    private void btn_simpanprodukActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_simpanprodukActionPerformed
-       // Deklarasi variabel
-    String kode_produk = txt_kp.getText();
-    String nama_produk = txt_np.getText();
-    String gambar_produk = txt_gp.getText();
-
-    // Pisahkan kategori dan supplier, dan ambil ID-nya (bagian sebelum "-")
-    String[] kategoriParts = cmb_kategori.getSelectedItem().toString().split("-");
-    int kategori_id = Integer.parseInt(kategoriParts[0].trim());
-    String[] supplierParts = cmb_supplier.getSelectedItem().toString().split("-");
-    int supplier_id = Integer.parseInt(supplierParts[0].trim());
-
-
-    // Parsing input ke tipe data yang sesuai
-    try {
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        String nama_produk = txt_np.getText();
+        String gambar_produk = txt_gp.getText();
+        int kategori_produk = Integer.parseInt(cmb_kategori.getSelectedItem().toString()); // Assuming txt_kategori_produk is a text field for integer input
+        int supplier_produk = Integer.parseInt(cmb_supplier.getSelectedItem().toString()); // Assuming txt_supplier_produk is a text field for integer input
         double harga_jual = Double.parseDouble(txt_hj.getText()); 
         double harga_beli = Double.parseDouble(txt_hb.getText()); 
         int stok_produk = Integer.parseInt(txt_sp.getText());
-
-        // Pastikan metode koneksi dan ID produk sudah benar
-        Connection K = koneksi.Go();
-        String Q = "UPDATE produk "
-                + "SET kode_produk=?, nama_produk=?, gambar_produk=?, kategori_produk=?, supplier_produk=?, harga_jual=?, harga_beli=?, stok_produk=? WHERE id_produk=?";
-
-        // Siapkan prepared statement dan masukkan data
-        PreparedStatement PS = K.prepareStatement(Q);
-        PS.setString(1, kode_produk);
-        PS.setString(2, nama_produk);
-        PS.setString(3, gambar_produk);
-        PS.setInt(4, kategori_id);         // gunakan kategori_id sebagai int
-        PS.setInt(5, supplier_id);         // gunakan supplier_id sebagai int
-        PS.setDouble(6, harga_jual);
-        PS.setDouble(7, harga_beli);
-        PS.setInt(8, stok_produk);
-        PS.setInt(9, id_produk());         // pastikan id_produk() sudah terimplementasi
-
-        // Eksekusi query
-        PS.executeUpdate();
-
-        // Refresh data produk di tampilan Admin dan tampilkan pesan sukses
-        Admin.viewDataProduct("");
-        JOptionPane.showMessageDialog(this, "Data berhasil disimpan");
-
-    } catch (NumberFormatException e) {
-        // Tangani kesalahan jika input tidak valid (misalnya, harga bukan angka)
-        JOptionPane.showMessageDialog(this, "Input tidak valid. Pastikan semua angka diisi dengan benar.");
-    } catch (SQLException e) {
-        // Tangani kesalahan SQL
-        JOptionPane.showMessageDialog(this, "Error updating data: " + e.getMessage());
-    } catch (Exception e) {
-        // Tangani kesalahan lainnya
-        JOptionPane.showMessageDialog(this, "Terjadi kesalahan: " + e.getMessage());
-    }
-
-
-
         
-    }//GEN-LAST:event_btn_simpanprodukActionPerformed
+        PreparedStatement PS;
+        try {
+            Connection K = koneksi.Go();
+            String Q = "UPDATE produk "
+                    + "SET nama_produk=?,gambar_produk=?,kategori_produk=?,supplier_produk=?,harga_jual=?,harga_beli=?,stok_produk=? WHERE id_produk=?";
+            PS = K.prepareStatement(Q);
+            PS.setString(1, nama_produk);
+            PS.setString(2, gambar_produk);
+            PS.setInt(3, kategori_produk);
+            PS.setInt(4, supplier_produk);
+            PS.setDouble(5, harga_jual);
+            PS.setDouble(6, harga_beli);
+            PS.setInt(7, stok_produk);
+            PS.setInt(8, id_produk());
+            PS.executeUpdate();
+            
+
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(null, "Invalid input. Please enter valid numbers.");
+        }catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error updating data: " + e.getMessage());
+        }
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        try {
+        // Mengambil nilai-nilai produk dari database atau metode getter
+        String nama_produk = getNp(); // Metode untuk mendapatkan nama produk
+        String gambar_produk = getGp(); // Metode untuk mendapatkan gambar produk
+        int kategori_produk = getKgp(); // Metode untuk mendapatkan kategori produk
+        int supplier_produk = getSlp(); // Metode untuk mendapatkan supplier produk
+        double harga_jual = getHj(); // Metode untuk mendapatkan harga jual
+        double harga_beli = getHb(); // Metode untuk mendapatkan harga beli
+        int stok_produk = getSp(); // Metode untuk mendapatkan stok produk
+
+        // Mengisi form dengan nilai-nilai tersebut
+        txt_np.setText(nama_produk);
+        txt_gp.setText(gambar_produk);
+        cmb_kategori.setSelectedItem(String.valueOf(kategori_produk));
+        cmb_supplier.setSelectedItem(String.valueOf(supplier_produk));
+        txt_hj.setText(String.valueOf(harga_jual));
+        txt_hb.setText(String.valueOf(harga_beli));
+        txt_sp.setText(String.valueOf(stok_produk));
+    } catch (Exception e) {
+        JOptionPane.showMessageDialog(null, "Error loading data: " + e.getMessage());
+    }
+    }//GEN-LAST:event_formWindowOpened
+
+    private void txt_hbActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_hbActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txt_hbActionPerformed
 
     /**
      * @param args the command line arguments
@@ -364,23 +360,23 @@ public class TambahProduk extends javax.swing.JDialog {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(TambahProduk.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(UbahProduk.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(TambahProduk.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(UbahProduk.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(TambahProduk.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(UbahProduk.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(TambahProduk.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(UbahProduk.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                TambahProduk dialog = new TambahProduk(new javax.swing.JFrame(), true);
-                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
+                UbahProduk dialog = new UbahProduk(new javax.swing.JFrame(), true);
+                dialog.addWindowListener(new java.awt.event.WindowAdapter(){
                     @Override
-                    public void windowClosing(java.awt.event.WindowEvent e) {
+                    public void windowClosing(java.awt.event.WindowEvent e){
                         System.exit(0);
                     }
                 });
@@ -390,11 +386,10 @@ public class TambahProduk extends javax.swing.JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btn_simpanproduk;
     private javax.swing.JComboBox<String> cmb_kategori;
     private javax.swing.JComboBox<String> cmb_supplier;
     private javax.swing.JButton jButton1;
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -408,49 +403,119 @@ public class TambahProduk extends javax.swing.JDialog {
     private javax.swing.JTextField txt_gp;
     private javax.swing.JTextField txt_hb;
     private javax.swing.JTextField txt_hj;
-    private javax.swing.JTextField txt_kp;
     private javax.swing.JTextField txt_np;
     private javax.swing.JTextField txt_sp;
     // End of variables declaration//GEN-END:variables
-private void KategoriProduk(){
-    try {
-        cmb_kategori.removeAllItems();
-        Connection K = koneksi.Go();
-        Statement S = K.createStatement();
-        String Q = "SELECT id, nama FROM kasir.kategori_produk";
-        ResultSet R = S.executeQuery(Q);
-        
-        while (R.next()) {                 
-            int id = R.getInt("id");                 	 	 	 	 	 	 	 	
-            String name = R.getString("nama");
-            cmb_kategori.addItem(id + "-" + name);                 
-        }
-    } catch (SQLException e) {
-        System.err.println("ErrorCode: 1123" + e.getMessage());
+
+    public int getIp() {
+        return ip;
     }
-}
-private void SupplierProduk(){
-    try {
-        cmb_supplier.removeAllItems();
-        Connection K = koneksi.Go();
-        Statement S = K.createStatement();
-        String Q = "SELECT id, nama FROM kasir.supplier";
-        ResultSet R = S.executeQuery(Q);
-        
-        while (R.next()) {                 
-            int id = R.getInt("id");                 	 	 	 	 	 	 	 	
-            String name = R.getString("nama");
-            cmb_supplier.addItem(id + "-" + name);                 
-        }
-    } catch (SQLException e) {
-        System.err.println("ErrorCode: 1123" + e.getMessage());
+
+    public void setIp(int ip) {
+        this.ip = ip;
     }
-}
+    public String getKp() {
+        return kp;
+    }
 
+    public void setKp(String kp) {
+        this.kp = kp;
+    }
+    public String getNp() {
+        return np;
+    }
 
+    public void setNp(String np) {
+        this.np = np;
+    }
 
+    public String getGp() {
+        return gp;
+    }
+
+    public void setGp(String gp) {
+        this.gp = gp;
+    }
+
+    public int getKgp() {
+        return kgp;
+    }
+
+    public void setKgp(int kgp) {
+        this.kgp = kgp;
+    }
+
+    public int getSlp() {
+        return slp;
+    }
+
+    public void setSlp(int slp) {
+        this.slp = slp;
+    }
+
+    public double getHj() {
+        return hj;
+    }
+
+    public void setHj(double hj) {
+        this.hj = hj;
+    }
+
+    public double getHb() {
+        return hb;
+    }
+
+    public void setHb(double hb) {
+        this.hb = hb;
+    }
+
+    public int getSp() {
+        return sp;
+    }
+
+    public void setSp(int sp) {
+        this.sp = sp;
+    }
+
+    void setip(int ip) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    void setkp(String kp) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    void setnp(String np) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    void setgp(String gp) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    void setkgp(int kgp) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    void setslp(int slp) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    void sethj(double hj) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    void sethb(double hb) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    void setsp(int sp) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
 
     private int id_produk() {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
+
+
 }

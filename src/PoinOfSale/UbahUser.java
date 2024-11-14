@@ -54,6 +54,11 @@ public class UbahUser extends javax.swing.JDialog {
         txt_pass = new javax.swing.JPasswordField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
+            }
+        });
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 204));
 
@@ -221,8 +226,8 @@ public class UbahUser extends javax.swing.JDialog {
         PreparedStatement PS;
         try {
             Connection K = koneksi.Go();
-            String Q = "UPDATE users "
-                    + "SET fullname=?,username=?,password=?,jabatan=? WHERE id=?";
+            String Q = "UPDATE akun "
+                    + "SET fullname=?,username=?,password=?,jabatan=? WHERE id_akun=?";
             PS = K.prepareStatement(Q);
             PS.setString(1, name);
             PS.setString(2, user);
@@ -239,13 +244,6 @@ public class UbahUser extends javax.swing.JDialog {
         }
     }//GEN-LAST:event_btn_simpanActionPerformed
     
-    private void formWindowOpened(java.awt.event.WindowEvent evt) {                                  
-        txtname.setText(getfn()); 
-        txtuser.setText(getus());
-        txt_pass.setText(getps()); 
-        String jbx = getjb().substring(0, 1).toUpperCase() + getjb().substring(1); 
-        cmbjabatan.setSelectedItem(jbx); 
-    } 
     private void txtnameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtnameActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtnameActionPerformed
@@ -253,6 +251,15 @@ public class UbahUser extends javax.swing.JDialog {
     private void cmbjabatanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbjabatanActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_cmbjabatanActionPerformed
+
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        // TODO add your handling code here:
+        txtname.setText(getfn()); 
+        txtuser.setText(getus());
+        txt_pass.setText(getps()); 
+        String jbx = getjb().substring(0, 1).toUpperCase() + getjb().substring(1); 
+        cmbjabatan.setSelectedItem(jbx); 
+    }//GEN-LAST:event_formWindowOpened
    
     /**
      * @param args the command line arguments
@@ -365,6 +372,10 @@ public class UbahUser extends javax.swing.JDialog {
 
     public void setjb(String jb) {
         this.jb = jb;
+    }
+
+    void setid(int id) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 }
 

@@ -4,10 +4,12 @@
  */
 package PoinOfSale;
 
+import java.sql.PreparedStatement;
 import java.awt.Frame;
 import java.sql.Connection;
 import java.sql.Statement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 /**
@@ -25,13 +27,14 @@ public class Admin extends javax.swing.JFrame {
         initComponents();
     }
 
-    Admin(UserProfile up){
+    public Admin(UserProfile up){
         initComponents();
         
         this.u = up;
         labelFullname.setText(u.getFullname());
         
         viewData("");
+        viewDataProduct("");
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -61,16 +64,15 @@ public class Admin extends javax.swing.JFrame {
         txt_tabel = new javax.swing.JTable();
         jPanel4 = new javax.swing.JPanel();
         jPanel9 = new javax.swing.JPanel();
-        jPanel12 = new javax.swing.JPanel();
-        btn_tambah1 = new javax.swing.JButton();
-        btn_ubah1 = new javax.swing.JButton();
+        btn_tambah_produk = new javax.swing.JButton();
+        btn_ubah_produk = new javax.swing.JButton();
         btn_hapus1 = new javax.swing.JButton();
         jPanel13 = new javax.swing.JPanel();
         logocari1 = new javax.swing.JLabel();
         txtproduk = new javax.swing.JTextField();
         txt_refreash1 = new javax.swing.JLabel();
         jScrollPane3 = new javax.swing.JScrollPane();
-        txt_tabel1 = new javax.swing.JTable();
+        txt_tbl_produk = new javax.swing.JTable();
         jPanel6 = new javax.swing.JPanel();
         jPanel7 = new javax.swing.JPanel();
 
@@ -156,7 +158,7 @@ public class Admin extends javax.swing.JFrame {
                 txtkeyKeyReleased(evt);
             }
         });
-        jPanel5.add(txtkey, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 0, 330, 30));
+        jPanel5.add(txtkey, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 350, -1));
 
         txt_refreash.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/refreash.png"))); // NOI18N
         txt_refreash.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -165,6 +167,7 @@ public class Admin extends javax.swing.JFrame {
             }
         });
 
+        txt_tabel.setAutoCreateRowSorter(true);
         txt_tabel.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null},
@@ -189,35 +192,33 @@ public class Admin extends javax.swing.JFrame {
         jPanel8Layout.setHorizontalGroup(
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel8Layout.createSequentialGroup()
-                .addGap(14, 14, 14)
+                .addGap(6, 6, 6)
                 .addComponent(btn_tambah)
                 .addGap(12, 12, 12)
                 .addComponent(btn_ubah)
                 .addGap(12, 12, 12)
                 .addComponent(btn_hapus)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(12, 12, 12)
                 .addComponent(txt_refreash)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 346, Short.MAX_VALUE)
-                .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 153, Short.MAX_VALUE)
+                .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+            .addComponent(jScrollPane2)
         );
         jPanel8Layout.setVerticalGroup(
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel8Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(txt_refreash, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel8Layout.createSequentialGroup()
+            .addGroup(jPanel8Layout.createSequentialGroup()
+                .addGap(6, 6, 6)
+                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btn_tambah, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel8Layout.createSequentialGroup()
                         .addGap(1, 1, 1)
-                        .addComponent(btn_ubah, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addComponent(btn_tambah, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btn_hapus, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel8Layout.createSequentialGroup()
-                        .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addComponent(btn_ubah, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btn_hapus, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txt_refreash, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 436, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 387, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
@@ -228,24 +229,22 @@ public class Admin extends javax.swing.JFrame {
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, 430, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(45, Short.MAX_VALUE))
+            .addComponent(jPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         jTabbedPane1.addTab("Data User", jPanel3);
 
-        btn_tambah1.setText("Tambah");
-        btn_tambah1.addActionListener(new java.awt.event.ActionListener() {
+        btn_tambah_produk.setText("Tambah");
+        btn_tambah_produk.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_tambah1ActionPerformed(evt);
+                btn_tambah_produkActionPerformed(evt);
             }
         });
 
-        btn_ubah1.setText("Ubah");
-        btn_ubah1.addActionListener(new java.awt.event.ActionListener() {
+        btn_ubah_produk.setText("Ubah");
+        btn_ubah_produk.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_ubah1ActionPerformed(evt);
+                btn_ubah_produkActionPerformed(evt);
             }
         });
 
@@ -278,85 +277,67 @@ public class Admin extends javax.swing.JFrame {
             }
         });
 
-        txt_tabel1.setModel(new javax.swing.table.DefaultTableModel(
+        txt_tbl_produk.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null}
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "ID", "NO", "FULLNAME", "USERNAME", "PASSWORD", "JABATAN"
+                "NO", "ID", "KODE", "NAMA", "GAMBAR", "KATEGORI", "SUPPLIER", "HARGA JUAL", "HARGA BELI", "STOK"
             }
         ));
-        txt_tabel1.getTableHeader().setReorderingAllowed(false);
-        txt_tabel1.addMouseListener(new java.awt.event.MouseAdapter() {
+        txt_tbl_produk.getTableHeader().setReorderingAllowed(false);
+        txt_tbl_produk.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                txt_tabel1MouseClicked(evt);
+                txt_tbl_produkMouseClicked(evt);
             }
         });
-        jScrollPane3.setViewportView(txt_tabel1);
-
-        javax.swing.GroupLayout jPanel12Layout = new javax.swing.GroupLayout(jPanel12);
-        jPanel12.setLayout(jPanel12Layout);
-        jPanel12Layout.setHorizontalGroup(
-            jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel12Layout.createSequentialGroup()
-                .addGap(14, 14, 14)
-                .addComponent(btn_tambah1)
-                .addGap(12, 12, 12)
-                .addComponent(btn_ubah1)
-                .addGap(12, 12, 12)
-                .addComponent(btn_hapus1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(txt_refreash1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 346, Short.MAX_VALUE)
-                .addComponent(jPanel13, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addComponent(jScrollPane3, javax.swing.GroupLayout.Alignment.TRAILING)
-        );
-        jPanel12Layout.setVerticalGroup(
-            jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel12Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(txt_refreash1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel12Layout.createSequentialGroup()
-                        .addGap(1, 1, 1)
-                        .addComponent(btn_ubah1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addComponent(btn_tambah1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btn_hapus1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel12Layout.createSequentialGroup()
-                        .addComponent(jPanel13, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 436, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
-        );
+        jScrollPane3.setViewportView(txt_tbl_produk);
 
         javax.swing.GroupLayout jPanel9Layout = new javax.swing.GroupLayout(jPanel9);
         jPanel9.setLayout(jPanel9Layout);
         jPanel9Layout.setHorizontalGroup(
             jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel12, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(jPanel9Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(btn_tambah_produk)
+                .addGap(12, 12, 12)
+                .addComponent(btn_ubah_produk)
+                .addGap(12, 12, 12)
+                .addComponent(btn_hapus1)
+                .addGap(12, 12, 12)
+                .addComponent(txt_refreash1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 156, Short.MAX_VALUE)
+                .addComponent(jPanel13, javax.swing.GroupLayout.PREFERRED_SIZE, 356, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addComponent(jScrollPane3, javax.swing.GroupLayout.Alignment.TRAILING)
         );
         jPanel9Layout.setVerticalGroup(
             jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel9Layout.createSequentialGroup()
-                .addComponent(jPanel12, javax.swing.GroupLayout.PREFERRED_SIZE, 430, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(45, Short.MAX_VALUE))
+                .addContainerGap()
+                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btn_tambah_produk, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel9Layout.createSequentialGroup()
+                        .addGap(1, 1, 1)
+                        .addComponent(btn_ubah_produk, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btn_hapus1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txt_refreash1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPanel13, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 387, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jPanel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel4Layout.createSequentialGroup()
-                .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addComponent(jPanel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         jTabbedPane1.addTab("Data Produk", jPanel4);
@@ -382,7 +363,7 @@ public class Admin extends javax.swing.JFrame {
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel6Layout.createSequentialGroup()
                 .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 445, Short.MAX_VALUE))
+                .addGap(0, 399, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Data Transaksi", jPanel6);
@@ -392,27 +373,17 @@ public class Admin extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jTabbedPane1, javax.swing.GroupLayout.Alignment.TRAILING)
+            .addComponent(jTabbedPane1)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 510, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jTabbedPane1))
         );
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
+        getContentPane().add(jPanel1, java.awt.BorderLayout.CENTER);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -426,7 +397,7 @@ public class Admin extends javax.swing.JFrame {
             String ps = txt_tabel.getValueAt(n, 4).toString();
             String jb = txt_tabel.getValueAt(n, 5).toString();
             UbahUser U = new UbahUser(this, true);
-            U.setId(id);
+            U.setid(id);
             U.setfn(fn);
             U.setus(us);
             U.setps(ps);
@@ -458,32 +429,31 @@ public class Admin extends javax.swing.JFrame {
     }//GEN-LAST:event_txt_tabelMouseClicked
 
     private void btn_hapusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_hapusActionPerformed
-        // TODO add your handling code here:
         int n = txt_tabel.getSelectedRow();
         if(n != -1){
-            int id = Integer.parseInt(txt_tabel.getValueAt(n, 0).toString());
-//            JOptionPane.showMessageDialog(this, id); 
+            int id = Integer.parseInt(txt_tabel.getValueAt(n, 1).toString());
+            String username = txt_tabel.getValueAt(n, 2).toString();
             
-            int pilihan = JOptionPane.showConfirmDialog(this, 
-                    "Apakah Anda yakin untuk menghapus data user ini?",
-                    "Hapus Data",JOptionPane.YES_NO_OPTION);
-            if(pilihan == 0){
-                //yes
-                String Q = "DELETE FROM users WHERE id="+id+" ";
+            int opsi = JOptionPane.showConfirmDialog(this, 
+                    "Apakah Anda yakin ingin menghapus data "+username+"?", 
+                    "Hapus Data", 
+                    JOptionPane.YES_NO_OPTION);
+            if(opsi == 0){
+                String Q = "DELETE FROM akun "
+                        + "WHERE id="+id;
+                
                 try {
                     Connection K = koneksi.Go();
                     Statement S = K.createStatement();
                     S.executeUpdate(Q);
                     viewData(""); 
-                } catch (Exception e) {
+                    JOptionPane.showMessageDialog(this, "Data "+ username +" telah terhapus");
+                } catch (SQLException e) {
                 }
-            }else {
-                //no
             }
             
         }else {
-            JOptionPane.showMessageDialog(this, "Anda belum memilih data"); 
-        
+            JOptionPane.showMessageDialog(this, "Anda belum memilih data");
         }
     }//GEN-LAST:event_btn_hapusActionPerformed
 
@@ -492,37 +462,86 @@ public class Admin extends javax.swing.JFrame {
         viewData(""); 
     }//GEN-LAST:event_txt_refreashMouseClicked
 
-    private void btn_tambah1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_tambah1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btn_tambah1ActionPerformed
+    private void btn_tambah_produkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_tambah_produkActionPerformed
+        TambahProduk P = new TambahProduk(this, true);
+        P.setVisible(true);
+    }//GEN-LAST:event_btn_tambah_produkActionPerformed
 
-    private void btn_ubah1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_ubah1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btn_ubah1ActionPerformed
+    private void btn_ubah_produkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_ubah_produkActionPerformed
+        int n = txt_tbl_produk.getSelectedRow();
+        if (n != -1){
+            int ip = Integer.parseInt(txt_tbl_produk.getValueAt(n, 0).toString()) ;
+            String kp = txt_tbl_produk.getValueAt(n, 2).toString();
+            String np = txt_tbl_produk.getValueAt(n, 3).toString();
+            String gp = txt_tbl_produk.getValueAt(n, 4).toString();
+            int kgp = Integer.parseInt(txt_tbl_produk.getValueAt(n, 5).toString());
+            int slp = Integer.parseInt(txt_tbl_produk.getValueAt(n, 6).toString());
+            double hj = Double.parseDouble(txt_tbl_produk.getValueAt(n, 7).toString());
+            double hb = Double.parseDouble(txt_tbl_produk.getValueAt(n, 8).toString());
+            int sp = Integer.parseInt(txt_tbl_produk.getValueAt(n, 9).toString());
+            UbahProduk U = new UbahProduk(this, true);
+            U.setip(ip);
+            U.setkp(kp);
+            U.setnp(np);
+            U.setgp(gp);
+            U.setkgp(kgp);
+            U.setslp(slp);
+            U.sethj(hj);
+            U.sethb(hb);
+            U.setsp(sp);
+            U.setVisible(true);
+        }
+    }//GEN-LAST:event_btn_ubah_produkActionPerformed
 
     private void btn_hapus1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_hapus1ActionPerformed
         // TODO add your handling code here:
+        int n = txt_tbl_produk.getSelectedRow();
+        if(n != -1){
+            int id = Integer.parseInt(txt_tbl_produk.getValueAt(n, 0).toString());
+            
+            int pilihan = JOptionPane.showConfirmDialog(this, 
+                    "Apakah Anda yakin untuk menghapus data produk ini?",
+                    "Hapus Data",JOptionPane.YES_NO_OPTION);
+            if(pilihan == 0){
+                //yes
+                String Q = "DELETE FROM akun WHERE id="+id+" ";
+                try {
+                    Connection K = koneksi.Go();
+                    Statement S = K.createStatement();
+                    S.executeUpdate(Q);
+                    viewData(""); 
+                } catch (SQLException e) {
+                }
+            }else {
+                //no
+            }  
+        }else {
+            JOptionPane.showMessageDialog(this, "Anda belum memilih data"); 
+        
+        }
     }//GEN-LAST:event_btn_hapus1ActionPerformed
 
     private void txtprodukKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtprodukKeyReleased
         // TODO add your handling code here:
         String key = txtproduk.getText();
         String w = "WHERE "
-                + "product_name LIKE '%"+key+"%' "
-                + "OR product_category LIKE '%"+key+"%' "
-                + "OR product_supplier LIKE '%"+key+"%' "
-                + "OR product_price_s LIKE '%"+key+"%'";
+                + "nama_produk LIKE '%"+key+"%' "
+                + "OR kategori_produk LIKE '%"+key+"%' "
+                + "OR supplier_produk LIKE '%"+key+"%' "
+                + "OR harga_jual LIKE '%"+key+"%'";
         
         viewDataProduct(w); 
     }//GEN-LAST:event_txtprodukKeyReleased
 
     private void txt_refreash1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txt_refreash1MouseClicked
         // TODO add your handling code here:
+        txtkey.setText(""); 
+        viewDataProduct(""); 
     }//GEN-LAST:event_txt_refreash1MouseClicked
 
-    private void txt_tabel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txt_tabel1MouseClicked
+    private void txt_tbl_produkMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txt_tbl_produkMouseClicked
         // TODO add your handling code here:
-    }//GEN-LAST:event_txt_tabel1MouseClicked
+    }//GEN-LAST:event_txt_tbl_produkMouseClicked
 
     /**
      * @param args the command line arguments
@@ -563,13 +582,12 @@ public class Admin extends javax.swing.JFrame {
     private javax.swing.JButton btn_hapus;
     private javax.swing.JButton btn_hapus1;
     private javax.swing.JButton btn_tambah;
-    private javax.swing.JButton btn_tambah1;
+    private javax.swing.JButton btn_tambah_produk;
     private javax.swing.JButton btn_ubah;
-    private javax.swing.JButton btn_ubah1;
+    private javax.swing.JButton btn_ubah_produk;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel10;
-    private javax.swing.JPanel jPanel12;
     private javax.swing.JPanel jPanel13;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
@@ -588,7 +606,7 @@ public class Admin extends javax.swing.JFrame {
     private javax.swing.JLabel txt_refreash;
     private javax.swing.JLabel txt_refreash1;
     public static javax.swing.JTable txt_tabel;
-    public static javax.swing.JTable txt_tabel1;
+    public static javax.swing.JTable txt_tbl_produk;
     private javax.swing.JTextField txtkey;
     private javax.swing.JTextField txtproduk;
     // End of variables declaration//GEN-END:variables
@@ -599,16 +617,16 @@ public class Admin extends javax.swing.JFrame {
             m.getDataVector().removeAllElements();
             Connection K = koneksi.Go();
             Statement S = K.createStatement();
-            String Q = "SELECT * FROM users "+where;
+            String Q = "SELECT * FROM akun "+where;
             ResultSet R = S.executeQuery(Q);
             int n = 1;
             while (R.next()) {                 
-                int id = R.getInt("id");
+                int id_akun = R.getInt("id");
                 String fullname = R.getString("fullname");
                 String username = R.getString("username");
                 String password = R.getString("password");
-                String level = R.getString("level");
-                Object[] data = {id, n, fullname, username, password, level};
+                String jabatan = R.getString("jabatan");
+                Object[] data = {id_akun, n, fullname, username, password, jabatan};
                 m.addRow(data); 
                 n++;
             }
@@ -616,14 +634,14 @@ public class Admin extends javax.swing.JFrame {
             txt_tabel.getColumnModel().getColumn(0).setMinWidth(0);
             txt_tabel.getColumnModel().getColumn(0).setMaxWidth(0);
             
-        } catch (Exception e) {
+        } catch (SQLException e) {
             //error handling
         }
     }
     
         public static void viewDataProduct(String where) {
         try {
-            DefaultTableModel m = (DefaultTableModel) txt_tabel1.getModel();
+            DefaultTableModel m = (DefaultTableModel) txt_tbl_produk.getModel();
             //m.getDataVector().removeAllElements();
             for (int i = m.getRowCount()-1; i >=0; i--) {
                 m.removeRow(i); 
@@ -631,30 +649,29 @@ public class Admin extends javax.swing.JFrame {
             
             Connection K = koneksi.Go();
             Statement S = K.createStatement();
-            String Q = "SELECT * FROM products "+where;
+            String Q = "SELECT * FROM produk "+where;
             ResultSet R = S.executeQuery(Q);
             int n = 1;
             while (R.next()) {                 
-                int id = R.getInt("id");
-                 	 	 	 	 	 	 	 	
-                String product_code = R.getString("product_code");
-                String product_name = R.getString("product_name");
-                String product_image = R.getString("product_image");                
-                int product_category = R.getInt("product_category");
-                int product_supplier = R.getInt("product_supplier");
-                double product_price_s = R.getDouble("product_price_s");
-                double product_price_b = R.getDouble("product_price_b");
-                int product_stock = R.getInt("product_stock");
-                Object[] data = {n, id,product_code, product_name, product_image,
-                        product_category, product_supplier, product_price_s, product_price_b, product_stock};
+                int id_produk = R.getInt("id_produk"); 	 	 	 	 	 	
+                String kode_produk = R.getString("kode_produk");
+                String nama_produk = R.getString("nama_produk");
+                String gambar_produk = R.getString("gambar_produk");                
+                int kategori_produk = R.getInt("kategori_produk");
+                int supplier_produk = R.getInt("supplier_produk");
+                double harga_jual = R.getDouble("harga_jual");
+                double harga_beli = R.getDouble("harga_beli");
+                int stok_produk = R.getInt("stok_produk");
+                Object[] data = {n, id_produk,kode_produk, nama_produk, gambar_produk,
+                kategori_produk, supplier_produk, harga_beli, harga_jual, stok_produk};
                 m.addRow(data); 
                 n++;
             }
             
-            txt_tabel1.getColumnModel().getColumn(0).setMinWidth(0);
-            txt_tabel1.getColumnModel().getColumn(0).setMaxWidth(0);
+            txt_tbl_produk.getColumnModel().getColumn(0).setMinWidth(0);
+            txt_tbl_produk.getColumnModel().getColumn(0).setMaxWidth(0);
             
-        } catch (Exception e) {
+        } catch (SQLException e) {
             //error handling
         }
     }

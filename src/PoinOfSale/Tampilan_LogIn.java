@@ -312,7 +312,7 @@ public class Tampilan_LogIn extends javax.swing.JFrame {
             String fn, us, ps, jb = null;
             UserProfile up = new UserProfile();
             while (r.next()) {                 
-                id = r.getInt("id_akun");
+                id = r.getInt("id");
                 fn = r.getString("fullname");
                 us = r.getString("username");
                 ps = r.getString("password");

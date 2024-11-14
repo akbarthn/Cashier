@@ -2,6 +2,8 @@ package PoinOfSale;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import javax.swing.JOptionPane;
 
 /*
@@ -210,8 +212,6 @@ public class TambahUser extends javax.swing.JDialog {
         String pass = new String(txt_pass.getPassword());
         String jabatan = cmbjabatan.getSelectedItem().toString();
         
-        //pengecekan
-        
         try {
             Connection K = koneksi.Go();
             String Q = "INSERT INTO akun "
@@ -225,13 +225,21 @@ public class TambahUser extends javax.swing.JDialog {
             PS.executeUpdate();
             
             Admin.viewData(""); 
+            
+            //format tanggal
+            Date d = new Date();
+            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy H:m:s z");
+            String tanggal = sdf.format(d);
+            
+            
+            Function.logActivity("\n["+tanggal+"] Penambahan user baru berhasil "); 
             JOptionPane.showMessageDialog(this, "Data berhasil disimpan");
             txtname.requestFocus();
         } catch (Exception e) {
             
         }
     }//GEN-LAST:event_jButton1ActionPerformed
-
+    
     private void txtnameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtnameActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtnameActionPerformed
