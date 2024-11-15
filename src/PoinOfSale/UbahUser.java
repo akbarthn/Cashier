@@ -2,9 +2,10 @@ package PoinOfSale;
 
 import java.awt.HeadlessException;
 import java.sql.Connection;
-//import java.sql.Statement;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import javax.swing.JOptionPane;
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
@@ -227,7 +228,7 @@ public class UbahUser extends javax.swing.JDialog {
         try {
             Connection K = koneksi.Go();
             String Q = "UPDATE akun "
-                    + "SET fullname=?,username=?,password=?,jabatan=? WHERE id_akun=?";
+                    + "SET fullname=?,username=?,password=?,jabatan=? WHERE id=?";
             PS = K.prepareStatement(Q);
             PS.setString(1, name);
             PS.setString(2, user);
@@ -237,6 +238,14 @@ public class UbahUser extends javax.swing.JDialog {
             PS.executeUpdate();
             
             Admin.viewData(""); 
+            
+            //format tanggal
+            Date d = new Date();
+            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy H:m:s z");
+            String tanggal = sdf.format(d);
+            
+            
+            Function.logActivity("\n["+tanggal+"] Ubah Akun Berhasil "); 
             JOptionPane.showMessageDialog(this, "Data berhasil diubah");
             txtname.requestFocus();
         } catch (HeadlessException | SQLException e) {

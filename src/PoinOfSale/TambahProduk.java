@@ -5,7 +5,7 @@
 package PoinOfSale;
 
 import PoinOfSale.Admin;
-import PoinOfSale.koneksi;
+import java.awt.HeadlessException;
 import java.io.File;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -21,9 +21,6 @@ import javax.swing.JOptionPane;
  * @author ACER
  */
 public class TambahProduk extends javax.swing.JDialog {
-    
-    private JComboBox<String> cmb;
-    private int idProduk;
 
     /**
      * Creates new form TambahProduk
@@ -32,14 +29,10 @@ public class TambahProduk extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
         
-        cmb = new JComboBox<>();
-        KategoriProduk();
-        SupplierProduk();
+        ProdukCategory();
+        SupplierCategory();
     }
 
-    public int id_Produk(){
-        return idProduk;
-    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -79,7 +72,6 @@ public class TambahProduk extends javax.swing.JDialog {
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel1.setText("KODE PRODUK");
 
-        txt_kp.setEditable(false);
         txt_kp.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
@@ -112,6 +104,11 @@ public class TambahProduk extends javax.swing.JDialog {
         jLabel6.setText("HARGA JUAL");
 
         txt_hj.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        txt_hj.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txt_hjActionPerformed(evt);
+            }
+        });
 
         jLabel7.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel7.setText("HARGA BELI");
@@ -289,41 +286,31 @@ public class TambahProduk extends javax.swing.JDialog {
     }//GEN-LAST:event_cmb_kategoriActionPerformed
 
     private void btn_simpanprodukActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_simpanprodukActionPerformed
-       // Deklarasi variabel
-    String kode_produk = txt_kp.getText();
-    String nama_produk = txt_np.getText();
-    String gambar_produk = txt_gp.getText();
-
-    // Pisahkan kategori dan supplier, dan ambil ID-nya (bagian sebelum "-")
-    String[] kategoriParts = cmb_kategori.getSelectedItem().toString().split("-");
-    int kategori_id = Integer.parseInt(kategoriParts[0].trim());
-    String[] supplierParts = cmb_supplier.getSelectedItem().toString().split("-");
-    int supplier_id = Integer.parseInt(supplierParts[0].trim());
-
-
-    // Parsing input ke tipe data yang sesuai
     try {
-        double harga_jual = Double.parseDouble(txt_hj.getText()); 
-        double harga_beli = Double.parseDouble(txt_hb.getText()); 
-        int stok_produk = Integer.parseInt(txt_sp.getText());
-
         // Pastikan metode koneksi dan ID produk sudah benar
         Connection K = koneksi.Go();
-        String Q = "UPDATE produk "
-                + "SET kode_produk=?, nama_produk=?, gambar_produk=?, kategori_produk=?, supplier_produk=?, harga_jual=?, harga_beli=?, stok_produk=? WHERE id_produk=?";
+        String Q = "INSERT INTO produk ("
+                + "kode_produk,"
+                + "nama_produk,"
+                + "gambar_produk,"
+                + "kategori_produk,"
+                + "supplier_produk,"
+                + "harga_jual,"
+                + "harga_beli,"
+                + "stok_produk) VALUES (?,?,?,?,?,?,?,?)";
 
         // Siapkan prepared statement dan masukkan data
         PreparedStatement PS = K.prepareStatement(Q);
-        PS.setString(1, kode_produk);
-        PS.setString(2, nama_produk);
-        PS.setString(3, gambar_produk);
-        PS.setInt(4, kategori_id);         // gunakan kategori_id sebagai int
-        PS.setInt(5, supplier_id);         // gunakan supplier_id sebagai int
-        PS.setDouble(6, harga_jual);
-        PS.setDouble(7, harga_beli);
-        PS.setInt(8, stok_produk);
-        PS.setInt(9, id_produk());         // pastikan id_produk() sudah terimplementasi
-
+        PS.setString(1, txt_kp.getText());
+        PS.setString(2, txt_np.getText());
+        PS.setString(3, txt_gp.getText());
+        String[] X = cmb_kategori.getSelectedItem().toString().split("-");
+        String[] Y = cmb_supplier.getSelectedItem().toString().split("-");
+        PS.setString(4, (X[0]));         
+        PS.setString(5, (Y[0]));        
+        PS.setDouble(6, Double.parseDouble(txt_hj.getText()));
+        PS.setDouble(7, Double.parseDouble(txt_hb.getText()));
+        PS.setInt(8, Integer.parseInt(txt_sp.getText()));
         // Eksekusi query
         PS.executeUpdate();
 
@@ -337,7 +324,7 @@ public class TambahProduk extends javax.swing.JDialog {
     } catch (SQLException e) {
         // Tangani kesalahan SQL
         JOptionPane.showMessageDialog(this, "Error updating data: " + e.getMessage());
-    } catch (Exception e) {
+    } catch (HeadlessException e) {
         // Tangani kesalahan lainnya
         JOptionPane.showMessageDialog(this, "Terjadi kesalahan: " + e.getMessage());
     }
@@ -346,6 +333,10 @@ public class TambahProduk extends javax.swing.JDialog {
 
         
     }//GEN-LAST:event_btn_simpanprodukActionPerformed
+
+    private void txt_hjActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_hjActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txt_hjActionPerformed
 
     /**
      * @param args the command line arguments
@@ -412,45 +403,43 @@ public class TambahProduk extends javax.swing.JDialog {
     private javax.swing.JTextField txt_np;
     private javax.swing.JTextField txt_sp;
     // End of variables declaration//GEN-END:variables
-private void KategoriProduk(){
+private void ProdukCategory(){
     try {
         cmb_kategori.removeAllItems();
         Connection K = koneksi.Go();
-        Statement S = K.createStatement();
-        String Q = "SELECT id, nama FROM kasir.kategori_produk";
-        ResultSet R = S.executeQuery(Q);
-        
-        while (R.next()) {                 
-            int id = R.getInt("id");                 	 	 	 	 	 	 	 	
-            String name = R.getString("nama");
-            cmb_kategori.addItem(id + "-" + name);                 
-        }
+            Statement S = K.createStatement();
+            String Q = "SELECT nama, id FROM kategori_produk";
+            ResultSet R = S.executeQuery(Q);
+//            int n = 1;
+            while (R.next()) {                 
+                int id = R.getInt("id");                 	 	 	 	 	 	 	 	
+                String name = R.getString("nama");
+//                String desc = R.getString("description");
+                cmb_kategori.addItem(id+"-"+name);                 
+            }
     } catch (SQLException e) {
-        System.err.println("ErrorCode: 1123" + e.getMessage());
+        System.err.println("ErrorCode: 1123"+e.getMessage());
     }
 }
-private void SupplierProduk(){
+
+
+private void SupplierCategory(){
     try {
         cmb_supplier.removeAllItems();
         Connection K = koneksi.Go();
-        Statement S = K.createStatement();
-        String Q = "SELECT id, nama FROM kasir.supplier";
-        ResultSet R = S.executeQuery(Q);
-        
-        while (R.next()) {                 
-            int id = R.getInt("id");                 	 	 	 	 	 	 	 	
-            String name = R.getString("nama");
-            cmb_supplier.addItem(id + "-" + name);                 
-        }
+            Statement S = K.createStatement();
+            String Q = "SELECT id, nama FROM supplier";
+            ResultSet R = S.executeQuery(Q);
+//            int n = 1;
+            while (R.next()) {                 
+                int id = R.getInt("id");                 	 	 	 	 	 	 	 	
+                String name = R.getString("nama");
+//                String desc = R.getString("description");
+                cmb_supplier.addItem(id+"-"+name);                 
+            }
     } catch (SQLException e) {
-        System.err.println("ErrorCode: 1123" + e.getMessage());
+        System.err.println("ErrorCode: 1123"+e.getMessage());
     }
 }
 
-
-
-
-    private int id_produk() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
 }

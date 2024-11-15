@@ -45,7 +45,6 @@ public class Tampilan_LogIn extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Login");
         setUndecorated(true);
-        setPreferredSize(new java.awt.Dimension(700, 450));
         setSize(new java.awt.Dimension(700, 450));
         addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
             public void mouseDragged(java.awt.event.MouseEvent evt) {
@@ -350,7 +349,6 @@ public class Tampilan_LogIn extends javax.swing.JFrame {
             }
             
         } catch (SQLException e) {
-            e.printStackTrace();
             JOptionPane.showMessageDialog(this, "terjadi kesalahan saat mencoba login");
         }
     }

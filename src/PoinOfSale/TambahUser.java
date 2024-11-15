@@ -1,7 +1,9 @@
 package PoinOfSale;
 
+import java.awt.HeadlessException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import javax.swing.JOptionPane;
@@ -226,16 +228,10 @@ public class TambahUser extends javax.swing.JDialog {
             
             Admin.viewData(""); 
             
-            //format tanggal
-            Date d = new Date();
-            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy H:m:s z");
-            String tanggal = sdf.format(d);
-            
-            
-            Function.logActivity("\n["+tanggal+"] Penambahan user baru berhasil "); 
+            Function.logActivity("\n["+name+"] Penambahan user baru berhasil "); 
             JOptionPane.showMessageDialog(this, "Data berhasil disimpan");
             txtname.requestFocus();
-        } catch (Exception e) {
+        } catch (HeadlessException | SQLException e) {
             
         }
     }//GEN-LAST:event_jButton1ActionPerformed

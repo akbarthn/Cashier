@@ -50,6 +50,7 @@ public class Admin extends javax.swing.JFrame {
         jPanel10 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         labelFullname = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanel3 = new javax.swing.JPanel();
         jPanel8 = new javax.swing.JPanel();
@@ -86,6 +87,8 @@ public class Admin extends javax.swing.JFrame {
 
         jLabel3.setText("Welcome");
 
+        labelFullname.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+
         javax.swing.GroupLayout jPanel10Layout = new javax.swing.GroupLayout(jPanel10);
         jPanel10.setLayout(jPanel10Layout);
         jPanel10Layout.setHorizontalGroup(
@@ -107,6 +110,15 @@ public class Admin extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
+        jButton1.setBackground(new java.awt.Color(255, 51, 51));
+        jButton1.setIcon(new javax.swing.ImageIcon("D:\\JAVA\\NetBeansProjects\\Cashier\\log-out.png")); // NOI18N
+        jButton1.setText("Logout");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -114,7 +126,9 @@ public class Admin extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(14, 14, 14)
                 .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -122,6 +136,10 @@ public class Admin extends javax.swing.JFrame {
                 .addGap(15, 15, 15)
                 .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(15, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jButton1)
+                .addContainerGap())
         );
 
         btn_tambah.setText("Tambah");
@@ -153,6 +171,11 @@ public class Admin extends javax.swing.JFrame {
         jPanel5.add(logocari, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 10, 20, -1));
 
         txtkey.setPreferredSize(new java.awt.Dimension(64, 30));
+        txtkey.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtkeyActionPerformed(evt);
+            }
+        });
         txtkey.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 txtkeyKeyReleased(evt);
@@ -263,6 +286,11 @@ public class Admin extends javax.swing.JFrame {
         jPanel13.add(logocari1, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 10, 20, -1));
 
         txtproduk.setPreferredSize(new java.awt.Dimension(64, 30));
+        txtproduk.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtprodukActionPerformed(evt);
+            }
+        });
         txtproduk.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 txtprodukKeyReleased(evt);
@@ -397,12 +425,13 @@ public class Admin extends javax.swing.JFrame {
             String ps = txt_tabel.getValueAt(n, 4).toString();
             String jb = txt_tabel.getValueAt(n, 5).toString();
             UbahUser U = new UbahUser(this, true);
-            U.setid(id);
+            U.setId(id);
             U.setfn(fn);
             U.setus(us);
             U.setps(ps);
             U.setjb(jb);
             U.setVisible(true); 
+ 
         }
         
     }//GEN-LAST:event_btn_ubahActionPerformed
@@ -494,31 +523,52 @@ public class Admin extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_ubah_produkActionPerformed
 
     private void btn_hapus1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_hapus1ActionPerformed
-        // TODO add your handling code here:
-        int n = txt_tbl_produk.getSelectedRow();
-        if(n != -1){
-            int id = Integer.parseInt(txt_tbl_produk.getValueAt(n, 0).toString());
-            
-            int pilihan = JOptionPane.showConfirmDialog(this, 
-                    "Apakah Anda yakin untuk menghapus data produk ini?",
-                    "Hapus Data",JOptionPane.YES_NO_OPTION);
-            if(pilihan == 0){
-                //yes
-                String Q = "DELETE FROM akun WHERE id="+id+" ";
-                try {
-                    Connection K = koneksi.Go();
-                    Statement S = K.createStatement();
-                    S.executeUpdate(Q);
-                    viewData(""); 
+    int n = txt_tbl_produk.getSelectedRow();
+if (n != -1) {
+    String idStr = txt_tbl_produk.getValueAt(n, 1).toString();
+
+    if (idStr != null && !idStr.isEmpty()) {
+        try {
+            int id = Integer.parseInt(idStr);
+            String productName = txt_tbl_produk.getValueAt(n, 1).toString();
+
+            int opsi = JOptionPane.showConfirmDialog(this,
+                    "Apakah Anda yakin ingin menghapus produk " + productName + "?",
+                    "Hapus Produk",
+                    JOptionPane.YES_NO_OPTION);
+
+            if (opsi == JOptionPane.YES_OPTION) {
+                // Pastikan nama kolom sudah benar
+                String query = "DELETE FROM produk WHERE id = ?";
+
+                try (Connection conn = koneksi.Go();
+                     PreparedStatement stmt = conn.prepareStatement(query)) {
+
+                    stmt.setInt(1, id); // Mengganti tanda ? dengan nilai id
+                    int rowsAffected = stmt.executeUpdate();
+
+                    if (rowsAffected > 0) {
+                        viewDataProduct("");
+                        JOptionPane.showMessageDialog(this, "Produk " + productName + " telah terhapus");
+                        Function.logActivity(" Produk " + productName + " berhasil dihapus ");
+                    } else {
+                        JOptionPane.showMessageDialog(this, "Produk tidak ditemukan atau sudah terhapus.");
+                    }
+
                 } catch (SQLException e) {
+                    JOptionPane.showMessageDialog(this, "Gagal menghapus data produk. Error: " + e.getMessage());
                 }
-            }else {
-                //no
-            }  
-        }else {
-            JOptionPane.showMessageDialog(this, "Anda belum memilih data"); 
-        
+            }
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "ID produk tidak valid.");
         }
+    } else {
+        JOptionPane.showMessageDialog(this, "ID produk kosong atau tidak valid.");
+    }
+} else {
+    JOptionPane.showMessageDialog(this, "Anda belum memilih produk.");
+}
+
     }//GEN-LAST:event_btn_hapus1ActionPerformed
 
     private void txtprodukKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtprodukKeyReleased
@@ -542,6 +592,27 @@ public class Admin extends javax.swing.JFrame {
     private void txt_tbl_produkMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txt_tbl_produkMouseClicked
         // TODO add your handling code here:
     }//GEN-LAST:event_txt_tbl_produkMouseClicked
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        int response = JOptionPane.showConfirmDialog(this, "Apakah Anda yakin ingin keluar?",
+                "Konfirmasi Logout", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+
+        if (response == JOptionPane.YES_OPTION) {
+            // Menutup halaman admin dan membuka halaman login jika pengguna memilih "Yes"
+            this.setVisible(false);
+            Tampilan_LogIn loginPage = new Tampilan_LogIn();
+            loginPage.setVisible(true);
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void txtkeyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtkeyActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtkeyActionPerformed
+
+    private void txtprodukActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtprodukActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtprodukActionPerformed
 
     /**
      * @param args the command line arguments
@@ -585,6 +656,7 @@ public class Admin extends javax.swing.JFrame {
     private javax.swing.JButton btn_tambah_produk;
     private javax.swing.JButton btn_ubah;
     private javax.swing.JButton btn_ubah_produk;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel10;
