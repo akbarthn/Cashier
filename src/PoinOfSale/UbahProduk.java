@@ -32,13 +32,11 @@ public class UbahProduk extends javax.swing.JDialog {
      * Creates new form UbahProduk
      */
     public UbahProduk(java.awt.Frame parent, boolean modal) {
-        super(parent,modal);
+        super(parent, modal);
         initComponents();
+
     }
 
-    UbahProduk(Admin aThis, boolean b) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -304,7 +302,7 @@ public class UbahProduk extends javax.swing.JDialog {
             PS.setDouble(5, harga_jual);
             PS.setDouble(6, harga_beli);
             PS.setInt(7, stok_produk);
-            PS.setInt(8, id_produk());
+            PS.setInt(8, getIp());
             PS.executeUpdate();
             
 
@@ -406,7 +404,6 @@ public class UbahProduk extends javax.swing.JDialog {
     private javax.swing.JTextField txt_np;
     private javax.swing.JTextField txt_sp;
     // End of variables declaration//GEN-END:variables
-
     public int getIp() {
         return ip;
     }
@@ -414,6 +411,7 @@ public class UbahProduk extends javax.swing.JDialog {
     public void setIp(int ip) {
         this.ip = ip;
     }
+
     public String getKp() {
         return kp;
     }
@@ -421,6 +419,7 @@ public class UbahProduk extends javax.swing.JDialog {
     public void setKp(String kp) {
         this.kp = kp;
     }
+
     public String getNp() {
         return np;
     }
@@ -476,46 +475,4 @@ public class UbahProduk extends javax.swing.JDialog {
     public void setSp(int sp) {
         this.sp = sp;
     }
-
-    void setip(int ip) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    void setkp(String kp) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    void setnp(String np) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    void setgp(String gp) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    void setkgp(int kgp) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    void setslp(int slp) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    void sethj(double hj) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    void sethb(double hb) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    void setsp(int sp) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    private int id_produk() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-
 }

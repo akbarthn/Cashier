@@ -10,6 +10,7 @@ import java.sql.Connection;
 import java.sql.Statement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 /**
@@ -413,7 +414,8 @@ public class Admin extends javax.swing.JFrame {
 
         getContentPane().add(jPanel1, java.awt.BorderLayout.CENTER);
 
-        pack();
+        setSize(new java.awt.Dimension(811, 585));
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void btn_ubahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_ubahActionPerformed
@@ -430,8 +432,7 @@ public class Admin extends javax.swing.JFrame {
             U.setus(us);
             U.setps(ps);
             U.setjb(jb);
-            U.setVisible(true); 
- 
+            U.setVisible(true);
         }
         
     }//GEN-LAST:event_btn_ubahActionPerformed
@@ -509,15 +510,15 @@ public class Admin extends javax.swing.JFrame {
             double hb = Double.parseDouble(txt_tbl_produk.getValueAt(n, 8).toString());
             int sp = Integer.parseInt(txt_tbl_produk.getValueAt(n, 9).toString());
             UbahProduk U = new UbahProduk(this, true);
-            U.setip(ip);
-            U.setkp(kp);
-            U.setnp(np);
-            U.setgp(gp);
-            U.setkgp(kgp);
-            U.setslp(slp);
-            U.sethj(hj);
-            U.sethb(hb);
-            U.setsp(sp);
+            U.setIp(ip);
+            U.setKp(kp);
+            U.setNp(np);
+            U.setGp(gp);
+            U.setKgp(kgp);
+            U.setSlp(slp);
+            U.setHj(hj);
+            U.setHb(hb);
+            U.setSp(sp);
             U.setVisible(true);
         }
     }//GEN-LAST:event_btn_ubah_produkActionPerformed
@@ -590,7 +591,8 @@ if (n != -1) {
     }//GEN-LAST:event_txt_refreash1MouseClicked
 
     private void txt_tbl_produkMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txt_tbl_produkMouseClicked
-        // TODO add your handling code here:
+        
+        
     }//GEN-LAST:event_txt_tbl_produkMouseClicked
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
