@@ -314,7 +314,7 @@ public class UbahProduk extends javax.swing.JDialog {
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
-        try {
+        
         // Mengambil nilai-nilai produk dari database atau metode getter
         String nama_produk = getNp(); // Metode untuk mendapatkan nama produk
         String gambar_produk = getGp(); // Metode untuk mendapatkan gambar produk
@@ -327,14 +327,12 @@ public class UbahProduk extends javax.swing.JDialog {
         // Mengisi form dengan nilai-nilai tersebut
         txt_np.setText(nama_produk);
         txt_gp.setText(gambar_produk);
-        cmb_kategori.setSelectedItem(String.valueOf(kategori_produk));
+        cmb_kategori.setSelectedItem(String.valueOf(kategori_produk)); 
         cmb_supplier.setSelectedItem(String.valueOf(supplier_produk));
         txt_hj.setText(String.valueOf(harga_jual));
         txt_hb.setText(String.valueOf(harga_beli));
         txt_sp.setText(String.valueOf(stok_produk));
-    } catch (Exception e) {
-        JOptionPane.showMessageDialog(null, "Error loading data: " + e.getMessage());
-    }
+    
     }//GEN-LAST:event_formWindowOpened
 
     private void txt_hbActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_hbActionPerformed
