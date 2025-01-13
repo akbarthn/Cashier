@@ -10,7 +10,10 @@ import java.awt.HeadlessException;
 import java.sql.Connection;
 //import java.sql.Statement;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
+import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 /**
  *
@@ -35,6 +38,8 @@ public class UbahProduk extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
 
+        ProdukCategory("kategori_produk", cmb_kategori);
+        ProdukCategory("supplier", cmb_supplier);
     }
 
 
@@ -473,4 +478,24 @@ public class UbahProduk extends javax.swing.JDialog {
     public void setSp(int sp) {
         this.sp = sp;
     }
+
+    
+    private void ProdukCategory(String tableName, JComboBox cmb){
+    try {
+            cmb.removeAllItems();
+            Connection K = koneksi.Go();
+            Statement S = K.createStatement();
+            String Q = "SELECT * FROM " + tableName;
+            ResultSet R = S.executeQuery(Q);
+//            int n = 1;
+            while (R.next()) {
+                int id = R.getInt("id");
+                String name = R.getString("nama");
+//                String desc = R.getString("description");
+                cmb.addItem(id + "-" + name);
+            }
+        } catch (SQLException e) {
+            System.err.println("ErrorCode: 1123" + e.getMessage());
+        }
+}
 }

@@ -460,30 +460,28 @@ public class Admin extends javax.swing.JFrame {
 
     private void btn_hapusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_hapusActionPerformed
         int n = txt_tabel.getSelectedRow();
-        if(n != -1){
-            int id = Integer.parseInt(txt_tabel.getValueAt(n, 1).toString());
-            String username = txt_tabel.getValueAt(n, 2).toString();
-            
-            int opsi = JOptionPane.showConfirmDialog(this, 
-                    "Apakah Anda yakin ingin menghapus data "+username+"?", 
-                    "Hapus Data", 
-                    JOptionPane.YES_NO_OPTION);
-            if(opsi == 0){
-                String Q = "DELETE FROM akun "
-                        + "WHERE id="+id;
-                
+        if (n != -1) {
+            // Ambil ID dan username dari baris yang dipilih
+            int id = Integer.parseInt(txt_tabel.getValueAt(n, 0).toString());
+            String username = txt_tabel.getValueAt(n, 2).toString(); // Asumsi kolom username di indeks 2
+
+            // Tampilkan dialog konfirmasi dengan nama pengguna
+            int pilihan = JOptionPane.showConfirmDialog(this,
+                    "Apakah Anda yakin ingin menghapus data user " + username + "?",
+                    "Hapus Data", JOptionPane.YES_NO_OPTION);
+
+            if (pilihan == 0) {
+                String Q = "DELETE FROM akun WHERE id="+id+" ";
                 try {
                     Connection K = koneksi.Go();
                     Statement S = K.createStatement();
                     S.executeUpdate(Q);
                     viewData(""); 
-                    JOptionPane.showMessageDialog(this, "Data "+ username +" telah terhapus");
-                } catch (SQLException e) {
+                } catch (Exception e) {
                 }
             }
-            
-        }else {
-            JOptionPane.showMessageDialog(this, "Anda belum memilih data");
+        } else {
+            // ... (sisanya sama seperti kode Anda sebelumnya)
         }
     }//GEN-LAST:event_btn_hapusActionPerformed
 

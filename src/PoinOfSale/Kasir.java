@@ -117,7 +117,7 @@ public class Kasir extends javax.swing.JFrame {
 
             },
             new String [] {
-                "ID", "Nama Produk", "QTY", "Title 4"
+                "ID", "Nama Produk", "QTY", "Harga"
             }
         ));
         jScrollPane1.setViewportView(tblcart);
@@ -138,6 +138,11 @@ public class Kasir extends javax.swing.JFrame {
         txtid.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtidActionPerformed(evt);
+            }
+        });
+        txtid.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtidKeyPressed(evt);
             }
         });
 
@@ -481,6 +486,10 @@ public class Kasir extends javax.swing.JFrame {
 //        N.setMODEL( (DefaultTableModel) tblcart.getModel()); 
 //        N.setVisible(true); 
     }//GEN-LAST:event_btlCheckoutActionPerformed
+
+    private void txtidKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtidKeyPressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtidKeyPressed
 
     /**
      * @param args the command line arguments
