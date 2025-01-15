@@ -71,6 +71,8 @@ public class UbahProduk extends javax.swing.JDialog {
         jSeparator1 = new javax.swing.JSeparator();
         jButton2 = new javax.swing.JButton();
         jLabel9 = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
+        txt_kp = new javax.swing.JTextField();
 
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowOpened(java.awt.event.WindowEvent evt) {
@@ -152,6 +154,16 @@ public class UbahProduk extends javax.swing.JDialog {
         jLabel9.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel9.setText("UBAH PRODUK");
 
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel1.setText("KODE PRODUK");
+
+        txt_kp.setEditable(false);
+        txt_kp.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txt_kpActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -169,10 +181,6 @@ public class UbahProduk extends javax.swing.JDialog {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(14, 14, 14)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txt_np, javax.swing.GroupLayout.PREFERRED_SIZE, 263, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -198,7 +206,15 @@ public class UbahProduk extends javax.swing.JDialog {
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txt_sp, javax.swing.GroupLayout.PREFERRED_SIZE, 263, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                .addComponent(txt_sp, javax.swing.GroupLayout.PREFERRED_SIZE, 263, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel1))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(txt_np, javax.swing.GroupLayout.DEFAULT_SIZE, 263, Short.MAX_VALUE)
+                                    .addComponent(txt_kp))))))
                 .addContainerGap(20, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -206,7 +222,11 @@ public class UbahProduk extends javax.swing.JDialog {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addGap(18, 18, 18)
                 .addComponent(jLabel9)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 24, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txt_kp, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txt_np, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -251,7 +271,9 @@ public class UbahProduk extends javax.swing.JDialog {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         pack();
@@ -286,63 +308,72 @@ public class UbahProduk extends javax.swing.JDialog {
     }//GEN-LAST:event_cmb_kategoriActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        String nama_produk = txt_np.getText();
-        String gambar_produk = txt_gp.getText();
-        int kategori_produk = Integer.parseInt(cmb_kategori.getSelectedItem().toString()); // Assuming txt_kategori_produk is a text field for integer input
-        int supplier_produk = Integer.parseInt(cmb_supplier.getSelectedItem().toString()); // Assuming txt_supplier_produk is a text field for integer input
-        double harga_jual = Double.parseDouble(txt_hj.getText()); 
-        double harga_beli = Double.parseDouble(txt_hb.getText()); 
-        int stok_produk = Integer.parseInt(txt_sp.getText());
-        
-        PreparedStatement PS;
         try {
             Connection K = koneksi.Go();
-            String Q = "UPDATE produk "
-                    + "SET nama_produk=?,gambar_produk=?,kategori_produk=?,supplier_produk=?,harga_jual=?,harga_beli=?,stok_produk=? WHERE id_produk=?";
-            PS = K.prepareStatement(Q);
-            PS.setString(1, nama_produk);
-            PS.setString(2, gambar_produk);
-            PS.setInt(3, kategori_produk);
-            PS.setInt(4, supplier_produk);
-            PS.setDouble(5, harga_jual);
-            PS.setDouble(6, harga_beli);
-            PS.setInt(7, stok_produk);
-            PS.setInt(8, getIp());
-            PS.executeUpdate();
+            String Q = "UPDATE produk SET "
+                    + "kode_produk = ?, "
+                    + "nama_produk = ?, "
+                    + "gambar_produk = ?, "
+                    + "kategori_produk = ?, "
+                    + "supplier_produk = ?, "
+                    + "harga_jual = ?, "
+                    + "harga_beli = ?, "
+                    + "stok_produk = ? "
+                    + "WHERE id_produk = ?";
+            //System.out.println(Q);
+            PreparedStatement ps = K.prepareStatement(Q);
+            ps.setString(1, txt_kp.getText());
+            ps.setString(2, txt_np.getText());
+            ps.setString(3, txt_gp.getText());
+            String[] X = cmb_kategori.getSelectedItem().toString().split(" - ");
+            String[] Y = cmb_supplier.getSelectedItem().toString().split(" - ");
+            ps.setString(4,X[0]); 
+            ps.setString(5,Y[0]); 
+            ps.setDouble(6,Double.parseDouble(txt_hj.getText())); 
+            ps.setDouble(7,Double.parseDouble(txt_hb.getText())); 
+            ps.setInt(8,Integer.parseInt(txt_sp.getText())); 
+            ps.setInt(9, ip);
+            ps.executeUpdate();
+            Admin.viewDataProduct("");
+            JOptionPane.showMessageDialog(this, "Data berhasil disimpan");
+            this.setVisible(false);
+            this.dispose();
+        } catch (NumberFormatException | SQLException e) {
             
-
-        } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(null, "Invalid input. Please enter valid numbers.");
-        }catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Error updating data: " + e.getMessage());
         }
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
-        
-        // Mengambil nilai-nilai produk dari database atau metode getter
-        String nama_produk = getNp(); // Metode untuk mendapatkan nama produk
-        String gambar_produk = getGp(); // Metode untuk mendapatkan gambar produk
-        int kategori_produk = getKgp(); // Metode untuk mendapatkan kategori produk
-        int supplier_produk = getSlp(); // Metode untuk mendapatkan supplier produk
-        double harga_jual = getHj(); // Metode untuk mendapatkan harga jual
-        double harga_beli = getHb(); // Metode untuk mendapatkan harga beli
-        int stok_produk = getSp(); // Metode untuk mendapatkan stok produk
-
-        // Mengisi form dengan nilai-nilai tersebut
-        txt_np.setText(nama_produk);
-        txt_gp.setText(gambar_produk);
-        cmb_kategori.setSelectedItem(String.valueOf(kategori_produk)); 
-        cmb_supplier.setSelectedItem(String.valueOf(supplier_produk));
-        txt_hj.setText(String.valueOf(harga_jual));
-        txt_hb.setText(String.valueOf(harga_beli));
-        txt_sp.setText(String.valueOf(stok_produk));
-    
+                // TODO add your handling code here:
+        txt_kp.setText(getKp());
+        txt_np.setText(getNp());
+        txt_gp.setText(getGp());
+        for (int i = 0; i < cmb_kategori.getItemCount(); i++) {
+            String[] item = cmb_kategori.getItemAt(i).toString().split(" - ");
+            if (item[1].equals(getKgp())) {
+                cmb_kategori.setSelectedIndex(i);
+                break;
+            }
+        }
+        for (int i = 0; i < cmb_supplier.getItemCount(); i++) {
+            String[] item = cmb_supplier.getItemAt(i).toString().split(" - ");
+            if (item[1].equals(getSlp())) {
+                cmb_supplier.setSelectedIndex(i);
+                break;
+            }
+        }
+        txt_hj.setText(String.valueOf(getHb()));
+        txt_hb.setText(String.valueOf(getHj()));
+        txt_sp.setText(String.valueOf(getSp()));
     }//GEN-LAST:event_formWindowOpened
 
     private void txt_hbActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_hbActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txt_hbActionPerformed
+
+    private void txt_kpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_kpActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txt_kpActionPerformed
 
     /**
      * @param args the command line arguments
@@ -391,6 +422,7 @@ public class UbahProduk extends javax.swing.JDialog {
     private javax.swing.JComboBox<String> cmb_supplier;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -404,6 +436,7 @@ public class UbahProduk extends javax.swing.JDialog {
     private javax.swing.JTextField txt_gp;
     private javax.swing.JTextField txt_hb;
     private javax.swing.JTextField txt_hj;
+    private javax.swing.JTextField txt_kp;
     private javax.swing.JTextField txt_np;
     private javax.swing.JTextField txt_sp;
     // End of variables declaration//GEN-END:variables
