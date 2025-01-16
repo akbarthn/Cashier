@@ -62,6 +62,7 @@ public class Kasir extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         tblcart = new javax.swing.JTable();
         jPanel7 = new javax.swing.JPanel();
+        jLabel5 = new javax.swing.JLabel();
         txtid = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         btnhapus = new javax.swing.JButton();
@@ -69,8 +70,8 @@ public class Kasir extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         lblTotalHarga = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
-        txtbayar = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
+        jTextField1 = new javax.swing.JTextField();
         jPanel8 = new javax.swing.JPanel();
         lblKembali = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
@@ -135,6 +136,11 @@ public class Kasir extends javax.swing.JFrame {
                 .addGap(0, 0, Short.MAX_VALUE))
         );
 
+        jPanel7.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/search.png"))); // NOI18N
+        jPanel7.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 10, -1, -1));
+
         txtid.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtidActionPerformed(evt);
@@ -145,21 +151,9 @@ public class Kasir extends javax.swing.JFrame {
                 txtidKeyPressed(evt);
             }
         });
+        jPanel7.add(txtid, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 217, 30));
 
-        javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
-        jPanel7.setLayout(jPanel7Layout);
-        jPanel7Layout.setHorizontalGroup(
-            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(txtid, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE))
-        );
-        jPanel7Layout.setVerticalGroup(
-            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(txtid)
-        );
-
-        jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel2.setLabelFor(jPanel7);
         jLabel2.setText("Produk");
 
@@ -203,16 +197,16 @@ public class Kasir extends javax.swing.JFrame {
 
         jPanel4.setBackground(new java.awt.Color(255, 255, 255));
 
-        txtbayar.addKeyListener(new java.awt.event.KeyAdapter() {
+        jLabel8.setText("Bayar");
+
+        jTextField1.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
-                txtbayarKeyPressed(evt);
+                jTextField1KeyPressed(evt);
             }
             public void keyReleased(java.awt.event.KeyEvent evt) {
-                txtbayarKeyReleased(evt);
+                jTextField1KeyReleased(evt);
             }
         });
-
-        jLabel8.setText("Bayar");
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -222,16 +216,18 @@ public class Kasir extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, 86, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtbayar, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(14, 14, 14))
+                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtbayar, javax.swing.GroupLayout.DEFAULT_SIZE, 25, Short.MAX_VALUE)
-                    .addComponent(jLabel8))
+                    .addComponent(jTextField1)
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addComponent(jLabel8)
+                        .addGap(0, 18, Short.MAX_VALUE)))
                 .addContainerGap())
         );
 
@@ -285,8 +281,8 @@ public class Kasir extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel2)
+                        .addGap(18, 18, 18)
                         .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(20, 20, 20))
                     .addGroup(jPanel1Layout.createSequentialGroup()
@@ -313,14 +309,14 @@ public class Kasir extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(28, 28, 28)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(btnhapus)))
+                        .addComponent(btnhapus))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(20, 20, 20)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
@@ -377,7 +373,7 @@ public class Kasir extends javax.swing.JFrame {
         });
         try {
             Connection K = koneksi.Go();
-            String Q = "SELECT id_produk,nama_produk,harga_beli,stok_produk FROM produk WHERE kode_produk='" + kode + "'";
+            String Q = "SELECT id_produk,nama_produk,harga_jual,stok_produk FROM produk WHERE kode_produk='" + kode + "'";
             Statement S = K.createStatement();
             ResultSet R = S.executeQuery(Q);
             while (R.next()) {
@@ -430,17 +426,54 @@ public class Kasir extends javax.swing.JFrame {
         RemoveProdukFromCart();
     }//GEN-LAST:event_btnhapusActionPerformed
 
-    private void txtbayarKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtbayarKeyPressed
+    private void btlCheckoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btlCheckoutActionPerformed
+        // TODO add your handling code here:
+        try {
+            //catat data transaksi
+            Connection K = koneksi.Go();
+            Statement S = K.createStatement();
+            SimpleDateFormat SDF = new SimpleDateFormat("yyyy-MM-dd");
+            String tgl = SDF.format(new Date());
+            String Q = "INSERT INTO transaksi (tanggal) VALUES ('"+tgl+"')";
+            S.executeUpdate(Q);
+            
+            //catat data detail transaksi
+            int row = tblcart.getRowCount();
+            for (int i = 0; i < row; i++) {
+                int id = Integer.parseInt(tblcart.getValueAt(row, 0).toString());
+                int QTY = Integer.parseInt(tblcart.getValueAt(row, 2).toString());
+                int Price = Integer.parseInt(tblcart.getValueAt(row, 3).toString());
+                
+            }
+        } catch (Exception e) {
+        }
+        
+        Nota N = new Nota(this, false);
+        N.setMODEL( (DefaultTableModel) tblcart.getModel()); 
+        N.setVisible(true);
+    }//GEN-LAST:event_btlCheckoutActionPerformed
+
+    private void txtidKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtidKeyPressed
+        // TODO add your handling code here:
+        int keyCode = evt.getKeyCode();
+        if(keyCode == KeyEvent.VK_F4){
+            jTextField1.setText(""); 
+            jTextField1.requestFocus();
+        }
+    }//GEN-LAST:event_txtidKeyPressed
+
+    private void jTextField1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField1KeyPressed
         // TODO add your handling code here:
         int keyCode = evt.getKeyCode();
         if(keyCode == KeyEvent.VK_F3){
             txtid.setText(""); 
             txtid.requestFocus();
         }
-    }//GEN-LAST:event_txtbayarKeyPressed
+    }//GEN-LAST:event_jTextField1KeyPressed
 
-    private void txtbayarKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtbayarKeyReleased
-        String val = txtbayar.getText();
+    private void jTextField1KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField1KeyReleased
+        // TODO add your handling code here:
+        String val = jTextField1.getText();
         if(!val.isEmpty()){
             int bayar = Integer.parseInt(val);
             String TH = lblTotalHarga.getText();
@@ -458,38 +491,7 @@ public class Kasir extends javax.swing.JFrame {
             lblKembali.setText("Rp 0");
             enableCheckoutBtn(false);
         }
-    }//GEN-LAST:event_txtbayarKeyReleased
-
-    private void btlCheckoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btlCheckoutActionPerformed
-        // TODO add your handling code here:
-        try {
-            //catat data transaksi
-            Connection K = koneksi.Go();
-            Statement S = K.createStatement();
-            SimpleDateFormat SDF = new SimpleDateFormat("yyyy-MM-dd");
-            String tgl = SDF.format(new Date());
-            String Q = "INSERT INTO trasaction (tanggal) VALUES ('"+tgl+"')";
-            S.executeUpdate(Q);
-            
-            //catat data detail transaksi
-            int row = tblcart.getRowCount();
-            for (int i = 0; i < row; i++) {
-                int id = Integer.parseInt(tblcart.getValueAt(row, 0).toString());
-                int QTY = Integer.parseInt(tblcart.getValueAt(row, 2).toString());
-                int Price = Integer.parseInt(tblcart.getValueAt(row, 3).toString());
-                
-            }
-        } catch (Exception e) {
-        }
-        
-//        Nota N = new Nota(this, false);
-//        N.setMODEL( (DefaultTableModel) tblcart.getModel()); 
-//        N.setVisible(true); 
-    }//GEN-LAST:event_btlCheckoutActionPerformed
-
-    private void txtidKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtidKeyPressed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtidKeyPressed
+    }//GEN-LAST:event_jTextField1KeyReleased
 
     /**
      * @param args the command line arguments
@@ -534,6 +536,7 @@ public class Kasir extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
@@ -545,11 +548,11 @@ public class Kasir extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTextField jTextField1;
     private javax.swing.JLabel labelFullname;
     private javax.swing.JLabel lblKembali;
     private javax.swing.JLabel lblTotalHarga;
     private javax.swing.JTable tblcart;
-    private javax.swing.JLabel txtbayar;
     private javax.swing.JTextField txtid;
     // End of variables declaration//GEN-END:variables
 

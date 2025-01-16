@@ -48,10 +48,10 @@ public class Admin extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
-        jPanel10 = new javax.swing.JPanel();
-        jLabel3 = new javax.swing.JLabel();
         labelFullname = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanel3 = new javax.swing.JPanel();
         jPanel8 = new javax.swing.JPanel();
@@ -84,32 +84,9 @@ public class Admin extends javax.swing.JFrame {
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 204));
 
-        jPanel10.setBackground(new java.awt.Color(153, 204, 255));
+        labelFullname.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
 
-        jLabel3.setText("Welcome");
-
-        labelFullname.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-
-        javax.swing.GroupLayout jPanel10Layout = new javax.swing.GroupLayout(jPanel10);
-        jPanel10.setLayout(jPanel10Layout);
-        jPanel10Layout.setHorizontalGroup(
-            jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel10Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel3)
-                    .addComponent(labelFullname, javax.swing.GroupLayout.PREFERRED_SIZE, 262, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(60, Short.MAX_VALUE))
-        );
-        jPanel10Layout.setVerticalGroup(
-            jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel10Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel3)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(labelFullname, javax.swing.GroupLayout.DEFAULT_SIZE, 42, Short.MAX_VALUE)
-                .addContainerGap())
-        );
+        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/user.png"))); // NOI18N
 
         jButton1.setBackground(new java.awt.Color(255, 51, 51));
         jButton1.setIcon(new javax.swing.ImageIcon("D:\\JAVA\\NetBeansProjects\\Cashier\\log-out.png")); // NOI18N
@@ -120,13 +97,22 @@ public class Admin extends javax.swing.JFrame {
             }
         });
 
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel1.setText("Welcome");
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(14, 14, 14)
-                .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
+                .addGap(33, 33, 33)
+                .addComponent(jLabel3)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addGap(199, 199, 199))
+                    .addComponent(labelFullname, javax.swing.GroupLayout.PREFERRED_SIZE, 262, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -134,13 +120,17 @@ public class Admin extends javax.swing.JFrame {
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(15, 15, 15)
-                .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(15, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jButton1)
                 .addContainerGap())
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(15, 15, 15)
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(labelFullname, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel3))
+                .addContainerGap(34, Short.MAX_VALUE))
         );
 
         btn_tambah.setText("Tambah");
@@ -242,7 +232,7 @@ public class Admin extends javax.swing.JFrame {
                     .addComponent(txt_refreash, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 387, Short.MAX_VALUE))
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 386, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
@@ -355,7 +345,7 @@ public class Admin extends javax.swing.JFrame {
                     .addComponent(txt_refreash1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jPanel13, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 387, Short.MAX_VALUE))
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 386, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
@@ -392,7 +382,7 @@ public class Admin extends javax.swing.JFrame {
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel6Layout.createSequentialGroup()
                 .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 399, Short.MAX_VALUE))
+                .addGap(0, 398, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Data Transaksi", jPanel6);
@@ -433,8 +423,7 @@ public class Admin extends javax.swing.JFrame {
             U.setps(ps);
             U.setjb(jb);
             U.setVisible(true);
-        }
-        
+        }    
     }//GEN-LAST:event_btn_ubahActionPerformed
 
     private void txtkeyKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtkeyKeyReleased
@@ -460,28 +449,30 @@ public class Admin extends javax.swing.JFrame {
 
     private void btn_hapusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_hapusActionPerformed
         int n = txt_tabel.getSelectedRow();
-        if (n != -1) {
-            // Ambil ID dan username dari baris yang dipilih
+        if(n != -1){
             int id = Integer.parseInt(txt_tabel.getValueAt(n, 0).toString());
-            String username = txt_tabel.getValueAt(n, 2).toString(); // Asumsi kolom username di indeks 2
-
-            // Tampilkan dialog konfirmasi dengan nama pengguna
-            int pilihan = JOptionPane.showConfirmDialog(this,
-                    "Apakah Anda yakin ingin menghapus data user " + username + "?",
-                    "Hapus Data", JOptionPane.YES_NO_OPTION);
-
-            if (pilihan == 0) {
-                String Q = "DELETE FROM akun WHERE id="+id+" ";
+            String username = txt_tabel.getValueAt(n, 2).toString();
+            
+            int opsi = JOptionPane.showConfirmDialog(this, 
+                    "Apakah Anda yakin ingin menghapus data "+username+"?", 
+                    "Hapus Data", 
+                    JOptionPane.YES_NO_OPTION);
+            if(opsi == 0){
+                String Q = "DELETE FROM akun "
+                        + "WHERE id="+id;
+                
                 try {
                     Connection K = koneksi.Go();
                     Statement S = K.createStatement();
                     S.executeUpdate(Q);
                     viewData(""); 
-                } catch (Exception e) {
+                    JOptionPane.showMessageDialog(this, "Data "+ username +" telah terhapus");
+                } catch (SQLException e) {
                 }
             }
-        } else {
-            // ... (sisanya sama seperti kode Anda sebelumnya)
+            
+        }else {
+            JOptionPane.showMessageDialog(this, "Anda belum memilih data");
         }
     }//GEN-LAST:event_btn_hapusActionPerformed
 
@@ -497,33 +488,27 @@ public class Admin extends javax.swing.JFrame {
 
     private void btn_ubah_produkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_ubah_produkActionPerformed
         int n = txt_tbl_produk.getSelectedRow();
-        if (n != -1){
-            int ip = Integer.parseInt(txt_tbl_produk.getValueAt(n, 0).toString()) ;
-            String kp = txt_tbl_produk.getValueAt(n, 2).toString();
-            String np = txt_tbl_produk.getValueAt(n, 3).toString();
-            String gp = txt_tbl_produk.getValueAt(n, 4).toString();
-            int kgp = Integer.parseInt(txt_tbl_produk.getValueAt(n, 5).toString());
-            int slp = Integer.parseInt(txt_tbl_produk.getValueAt(n, 6).toString());
-            double hj = Double.parseDouble(txt_tbl_produk.getValueAt(n, 7).toString());
-            double hb = Double.parseDouble(txt_tbl_produk.getValueAt(n, 8).toString());
-            int sp = Integer.parseInt(txt_tbl_produk.getValueAt(n, 9).toString());
+        if(n != -1){
             UbahProduk U = new UbahProduk(this, true);
-            U.setIp(ip);
-            U.setKp(kp);
-            U.setNp(np);
-            U.setGp(gp);
-            U.setKgp(kgp);
-            U.setSlp(slp);
-            U.setHj(hj);
-            U.setHb(hb);
-            U.setSp(sp);
-            U.setVisible(true);
+            U.setLocationRelativeTo(this);
+            U.setIp(Integer.parseInt(txt_tbl_produk.getValueAt(n, 1).toString()));
+            U.setKp(txt_tbl_produk.getValueAt(n, 2).toString());
+            U.setNp(txt_tbl_produk.getValueAt(n, 3).toString());
+            U.setGp(txt_tbl_produk.getValueAt(n, 4).toString());
+            U.setKgp(txt_tbl_produk.getValueAt(n, 5).toString());
+            U.setSlp(txt_tbl_produk.getValueAt(n, 6).toString());
+            U.setHj(Double.parseDouble(txt_tbl_produk.getValueAt(n, 7).toString()));
+            U.setHb(Double.parseDouble(txt_tbl_produk.getValueAt(n, 8).toString()));
+            U.setSp(Integer.parseInt(txt_tbl_produk.getValueAt(n, 9).toString()));
+            U.setVisible(true); 
+        }else {
+            JOptionPane.showMessageDialog(this, "Anda belum memilih data");
         }
     }//GEN-LAST:event_btn_ubah_produkActionPerformed
 
     private void btn_hapus1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_hapus1ActionPerformed
     int n = txt_tbl_produk.getSelectedRow();
-if (n != -1) {
+    if (n != -1) {
     String idStr = txt_tbl_produk.getValueAt(n, 1).toString();
 
     if (idStr != null && !idStr.isEmpty()) {
@@ -538,7 +523,7 @@ if (n != -1) {
 
             if (opsi == JOptionPane.YES_OPTION) {
                 // Pastikan nama kolom sudah benar
-                String query = "DELETE FROM produk WHERE id = ?";
+                String query = "DELETE FROM produk WHERE id_produk = ?";
 
                 try (Connection conn = koneksi.Go();
                      PreparedStatement stmt = conn.prepareStatement(query)) {
@@ -657,9 +642,9 @@ if (n != -1) {
     private javax.swing.JButton btn_ubah;
     private javax.swing.JButton btn_ubah_produk;
     private javax.swing.JButton jButton1;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel13;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;

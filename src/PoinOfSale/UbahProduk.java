@@ -7,6 +7,7 @@ package PoinOfSale;
 import java.io.File;
 import javax.swing.JFileChooser;
 import java.awt.HeadlessException;
+import java.awt.event.KeyEvent;
 import java.sql.Connection;
 //import java.sql.Statement;
 import java.sql.PreparedStatement;
@@ -25,11 +26,83 @@ public class UbahProduk extends javax.swing.JDialog {
     private String kp;
     private String np;
     private String gp;
-    private int kgp;
-    private int slp;
+    private String kgp;
+    private String slp;
     private double hj;
     private double hb;
     private int sp;
+
+    public int getIp() {
+        return ip;
+    }
+
+    public void setIp(int ip) {
+        this.ip = ip;
+    }
+
+    public String getKp() {
+        return kp;
+    }
+
+    public void setKp(String kp) {
+        this.kp = kp;
+    }
+
+    public String getNp() {
+        return np;
+    }
+
+    public void setNp(String np) {
+        this.np = np;
+    }
+
+    public String getGp() {
+        return gp;
+    }
+
+    public void setGp(String gp) {
+        this.gp = gp;
+    }
+
+    public String getKgp() {
+        return kgp;
+    }
+
+    public void setKgp(String kgp) {
+        this.kgp = kgp;
+    }
+
+    public String getSlp() {
+        return slp;
+    }
+
+    public void setSlp(String slp) {
+        this.slp = slp;
+    }
+
+    public double getHj() {
+        return hj;
+    }
+
+    public void setHj(double hj) {
+        this.hj = hj;
+    }
+
+    public double getHb() {
+        return hb;
+    }
+
+    public void setHb(double hb) {
+        this.hb = hb;
+    }
+
+    public int getSp() {
+        return sp;
+    }
+
+    public void setSp(int sp) {
+        this.sp = sp;
+    }
     
     /**
      * Creates new form UbahProduk
@@ -38,8 +111,9 @@ public class UbahProduk extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
 
-        ProdukCategory("kategori_produk", cmb_kategori);
-        ProdukCategory("supplier", cmb_supplier);
+        getkategori();
+        getsupplier();
+    
     }
 
 
@@ -158,11 +232,6 @@ public class UbahProduk extends javax.swing.JDialog {
         jLabel1.setText("KODE PRODUK");
 
         txt_kp.setEditable(false);
-        txt_kp.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txt_kpActionPerformed(evt);
-            }
-        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -175,9 +244,6 @@ public class UbahProduk extends javax.swing.JDialog {
                 .addGap(17, 17, 17))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(149, 149, 149)
-                        .addComponent(jLabel9))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(14, 14, 14)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -212,9 +278,12 @@ public class UbahProduk extends javax.swing.JDialog {
                                     .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jLabel1))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(txt_np, javax.swing.GroupLayout.DEFAULT_SIZE, 263, Short.MAX_VALUE)
-                                    .addComponent(txt_kp))))))
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(txt_np, javax.swing.GroupLayout.PREFERRED_SIZE, 263, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txt_kp, javax.swing.GroupLayout.PREFERRED_SIZE, 263, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(149, 149, 149)
+                        .addComponent(jLabel9)))
                 .addContainerGap(20, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -222,9 +291,9 @@ public class UbahProduk extends javax.swing.JDialog {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addGap(18, 18, 18)
                 .addComponent(jLabel9)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 40, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txt_kp, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txt_kp, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -309,42 +378,50 @@ public class UbahProduk extends javax.swing.JDialog {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         try {
-            Connection K = koneksi.Go();
-            String Q = "UPDATE produk SET "
-                    + "kode_produk = ?, "
-                    + "nama_produk = ?, "
-                    + "gambar_produk = ?, "
-                    + "kategori_produk = ?, "
-                    + "supplier_produk = ?, "
-                    + "harga_jual = ?, "
-                    + "harga_beli = ?, "
-                    + "stok_produk = ? "
-                    + "WHERE id_produk = ?";
-            //System.out.println(Q);
-            PreparedStatement ps = K.prepareStatement(Q);
-            ps.setString(1, txt_kp.getText());
-            ps.setString(2, txt_np.getText());
-            ps.setString(3, txt_gp.getText());
-            String[] X = cmb_kategori.getSelectedItem().toString().split(" - ");
-            String[] Y = cmb_supplier.getSelectedItem().toString().split(" - ");
-            ps.setString(4,X[0]); 
-            ps.setString(5,Y[0]); 
-            ps.setDouble(6,Double.parseDouble(txt_hj.getText())); 
-            ps.setDouble(7,Double.parseDouble(txt_hb.getText())); 
-            ps.setInt(8,Integer.parseInt(txt_sp.getText())); 
-            ps.setInt(9, ip);
-            ps.executeUpdate();
-            Admin.viewDataProduct("");
-            JOptionPane.showMessageDialog(this, "Data berhasil disimpan");
-            this.setVisible(false);
-            this.dispose();
+        Connection K = koneksi.Go();
+        String Q = "UPDATE produk SET "
+                + "kode_produk = ?, "
+                + "nama_produk = ?, "
+                + "gambar_produk = ?, "
+                + "kategori_produk = ?, "
+                + "supplier_produk = ?, "
+                + "harga_jual = ?, "
+                + "harga_beli = ?, "
+                + "stok_produk = ? "
+                + "WHERE id_produk = ?";
+        PreparedStatement ps = K.prepareStatement(Q);
+        ps.setString(1, txt_kp.getText()); // kode_produk
+        ps.setString(2, txt_np.getText()); // nama_produk
+        ps.setString(3, txt_gp.getText()); // gambar_produk
+
+        // Ambil ID kategori (integer) dari combo box
+        String[] X = cmb_kategori.getSelectedItem().toString().split(" - ");
+        int kategoriId = Integer.parseInt(X[0].trim()); // Pastikan format "ID - Nama Kategori"
+        ps.setInt(4, kategoriId);
+
+        // Ambil ID supplier (integer) dari combo box
+        String[] Y = cmb_supplier.getSelectedItem().toString().split(" - ");
+        int supplierId = Integer.parseInt(Y[0].trim()); // Pastikan format "ID - Nama Supplier"
+        ps.setInt(5, supplierId);
+
+        ps.setDouble(6, Double.parseDouble(txt_hj.getText())); // harga_jual
+        ps.setDouble(7, Double.parseDouble(txt_hb.getText())); // harga_beli
+        ps.setInt(8, Integer.parseInt(txt_sp.getText())); // stok_produk
+        ps.setInt(9, ip); // id_produk
+
+        ps.executeUpdate();
+        Admin.viewDataProduct("");
+        JOptionPane.showMessageDialog(this, "Data berhasil disimpan");
+        this.setVisible(false);
+        this.dispose();
         } catch (NumberFormatException | SQLException e) {
-            
+            JOptionPane.showMessageDialog(this, "Terjadi Kesalahan [EP-463]:\n" + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
+
+
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
-                // TODO add your handling code here:
         txt_kp.setText(getKp());
         txt_np.setText(getNp());
         txt_gp.setText(getGp());
@@ -365,15 +442,12 @@ public class UbahProduk extends javax.swing.JDialog {
         txt_hj.setText(String.valueOf(getHb()));
         txt_hb.setText(String.valueOf(getHj()));
         txt_sp.setText(String.valueOf(getSp()));
+
     }//GEN-LAST:event_formWindowOpened
 
     private void txt_hbActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_hbActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txt_hbActionPerformed
-
-    private void txt_kpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_kpActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txt_kpActionPerformed
 
     /**
      * @param args the command line arguments
@@ -440,95 +514,45 @@ public class UbahProduk extends javax.swing.JDialog {
     private javax.swing.JTextField txt_np;
     private javax.swing.JTextField txt_sp;
     // End of variables declaration//GEN-END:variables
-    public int getIp() {
-        return ip;
-    }
-
-    public void setIp(int ip) {
-        this.ip = ip;
-    }
-
-    public String getKp() {
-        return kp;
-    }
-
-    public void setKp(String kp) {
-        this.kp = kp;
-    }
-
-    public String getNp() {
-        return np;
-    }
-
-    public void setNp(String np) {
-        this.np = np;
-    }
-
-    public String getGp() {
-        return gp;
-    }
-
-    public void setGp(String gp) {
-        this.gp = gp;
-    }
-
-    public int getKgp() {
-        return kgp;
-    }
-
-    public void setKgp(int kgp) {
-        this.kgp = kgp;
-    }
-
-    public int getSlp() {
-        return slp;
-    }
-
-    public void setSlp(int slp) {
-        this.slp = slp;
-    }
-
-    public double getHj() {
-        return hj;
-    }
-
-    public void setHj(double hj) {
-        this.hj = hj;
-    }
-
-    public double getHb() {
-        return hb;
-    }
-
-    public void setHb(double hb) {
-        this.hb = hb;
-    }
-
-    public int getSp() {
-        return sp;
-    }
-
-    public void setSp(int sp) {
-        this.sp = sp;
-    }
-
     
-    private void ProdukCategory(String tableName, JComboBox cmb){
-    try {
-            cmb.removeAllItems();
+    
+    private void getkategori() {
+        try {
             Connection K = koneksi.Go();
             Statement S = K.createStatement();
-            String Q = "SELECT * FROM " + tableName;
+            String Q = "SELECT id, nama FROM kategori_produk";
             ResultSet R = S.executeQuery(Q);
-//            int n = 1;
-            while (R.next()) {
+            cmb_kategori.removeAllItems();
+            while (R.next()) {                 
                 int id = R.getInt("id");
                 String name = R.getString("nama");
-//                String desc = R.getString("description");
-                cmb.addItem(id + "-" + name);
-            }
+                cmb_kategori.addItem(id+" - "+name);
+            } 
         } catch (SQLException e) {
-            System.err.println("ErrorCode: 1123" + e.getMessage());
         }
-}
+    }
+
+    private void getsupplier() {
+        try {
+            Connection K = koneksi.Go();
+            Statement S = K.createStatement();
+            String Q = "SELECT id, nama FROM supplier";
+            ResultSet R = S.executeQuery(Q);
+            cmb_supplier.removeAllItems();
+            while (R.next()) {                 
+                int id = R.getInt("id");
+                String name = R.getString("nama");
+                cmb_supplier.addItem(id+" - "+name);
+            } 
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+    
+    private void numberOnly(KeyEvent evt) {
+        char c = evt.getKeyChar();
+        if(!Character.isDigit(c)){
+            evt.consume();
+        }
+    }
 }
